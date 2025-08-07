@@ -1,10 +1,7 @@
-// postcss.config.js yoki postcss.config.mjs
-import tailwindcss from '@tailwindcss/postcss'
-import autoprefixer from 'autoprefixer'
-
+// postcss.config.js
 export default {
-  plugins: [
-    tailwindcss(),
-    autoprefixer(),
-  ],
+  plugins: {
+    '@tailwindcss/postcss': {}, // ✅ TO‘G‘RI plugin nomi
+    autoprefixer: {},
+  },
 }
