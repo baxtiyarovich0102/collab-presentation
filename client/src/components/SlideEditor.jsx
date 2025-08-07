@@ -1,25 +1,29 @@
-import { useSlides } from '../context/SlideContext'
+import { useSlideContext } from "../context/SlideContext";
 
 const SlideEditor = () => {
-  const { slides, currentSlideId, updateSlide } = useSlides() // ✅ To‘g‘ri nomlar
-  const selectedSlide = slides.find((slide) => slide.id === currentSlideId)
+  const { currentSlide, updateCurrentSlide } = useSlideContext();
 
-  const handleChange = (e) => {
-    updateSlide(currentSlideId, e.target.value) // ✅ updateSlide ishlatilmoqda
-  }
-
-  if (!selectedSlide) return <div className="flex-1 p-4">No slide selected</div>
+  if (!currentSlide) return <div>No slide selected</div>;
 
   return (
-    <div className="flex-1 p-4">
+    <div className="mb-4">
+      <h2 className="font-bold mb-2">📝 Slide Editor</h2>
+      <input
+        className="w-full border p-2 mb-2"
+        type="text"
+        value={currentSlide.title}
+        onChange={(e) => updateCurrentSlide("title", e.target.value)}
+        placeholder="Slide Title"
+      />
       <textarea
-        value={selectedSlide.content}
-        onChange={handleChange}
-        className="w-full h-full p-2 border rounded resize-none text-lg"
-        placeholder="Write your slide content here..."
+        className="w-full border p-2"
+        rows={6}
+        value={currentSlide.content}
+        onChange={(e) => updateCurrentSlide("content", e.target.value)}
+        placeholder="Slide Content"
       />
     </div>
-  )
-}
+  );
+};
 
-export default SlideEditor
+export default SlideEditor;

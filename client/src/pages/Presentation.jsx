@@ -1,33 +1,25 @@
-import { useSlide } from "../context/SlideProvider"
+import Controls from "../components/Controls";
+import SlideEditor from "../components/SlideEditor";
+import SlideList from "../components/SlideList";
+import SlidePreview from "../components/SlidePreview";
+import { SlideProvider } from "../context/SlideProvider";
 
 const Presentation = () => {
-  const { slideIndex, changeSlide } = useSlide()
-
-  const slides = ["Slide 1", "Slide 2", "Slide 3"]
-
-  const nextSlide = () => {
-    const newIndex = (slideIndex + 1) % slides.length
-    changeSlide(newIndex)
-  }
-
-  const prevSlide = () => {
-    const newIndex = (slideIndex - 1 + slides.length) % slides.length
-    changeSlide(newIndex)
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="text-3xl font-bold mb-4">{slides[slideIndex]}</div>
-      <div className="space-x-4">
-        <button onClick={prevSlide} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Prev
-        </button>
-        <button onClick={nextSlide} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Next
-        </button>
+    <SlideProvider>
+      <div className="max-w-4xl mx-auto p-4 space-y-6">
+        <h1 className="text-3xl font-bold text-center mb-6">🎤 Presentation Editor</h1>
+        <Controls />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <SlideList />
+            <SlideEditor />
+          </div>
+          <SlidePreview />
+        </div>
       </div>
-    </div>
-  )
-}
+    </SlideProvider>
+  );
+};
 
-export default Presentation
+export default Presentation;

@@ -1,24 +1,26 @@
-// ✅ kerakli importlar
-import { useSlides } from "../context/SlideContext"
+import { useSlideContext } from "../context/SlideContext";
 
-function SlideList() {
-  const { slides, currentSlideId, setCurrentSlideId } = useSlides()
+const SlideList = () => {
+  const { slides, currentSlideIndex, setCurrentSlideIndex } = useSlideContext();
 
   return (
-    <div className="w-64 bg-gray-100 p-4 overflow-y-auto">
-      {slides.map((slide) => (
-        <div
-          key={slide.id}
-          onClick={() => setCurrentSlideId(slide.id)}
-          className={`p-2 mb-2 border rounded cursor-pointer ${
-            slide.id === currentSlideId ? 'bg-blue-100' : ''
-          }`}
-        >
-          {slide.content || "No content"}
-        </div>
-      ))}
+    <div className="mb-4">
+      <h2 className="font-bold mb-2">📜 Slide List</h2>
+      <ul className="space-y-2">
+        {slides.map((slide, index) => (
+          <li
+            key={slide.id}
+            className={`p-2 rounded cursor-pointer ${
+              index === currentSlideIndex ? "bg-blue-200" : "bg-gray-100"
+            }`}
+            onClick={() => setCurrentSlideIndex(index)}
+          >
+            {index + 1}. {slide.title}
+          </li>
+        ))}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default SlideList // ✅ BO‘LISHI SHART!
+export default SlideList;

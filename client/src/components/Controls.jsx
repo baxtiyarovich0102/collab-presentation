@@ -1,14 +1,21 @@
-export default function Controls({ onAdd, onDelete, onUndo, onRedo }) {
+import { useSlideContext } from "../context/SlideContext";
+
+const Controls = () => {
+  const { addSlide, deleteSlide, currentSlideIndex } = useSlideContext();
+
   return (
-    <div className="border-t p-4 flex justify-between">
-      <div className="space-x-2">
-        <button onClick={onAdd} className="bg-blue-500 text-white px-4 py-2 rounded">Add Slide</button>
-        <button onClick={onDelete} className="bg-red-500 text-white px-4 py-2 rounded">Delete Slide</button>
-      </div>
-      <div className="space-x-2">
-        <button onClick={onUndo} className="bg-gray-500 text-white px-4 py-2 rounded">Undo</button>
-        <button onClick={onRedo} className="bg-gray-500 text-white px-4 py-2 rounded">Redo</button>
-      </div>
+    <div className="flex gap-2 mb-4">
+      <button onClick={addSlide} className="bg-blue-500 text-white px-3 py-1 rounded">
+        ➕ Add Slide
+      </button>
+      <button
+        onClick={() => deleteSlide(currentSlideIndex)}
+        className="bg-red-500 text-white px-3 py-1 rounded"
+      >
+        🗑️ Delete Slide
+      </button>
     </div>
-  )
-}
+  );
+};
+
+export default Controls;

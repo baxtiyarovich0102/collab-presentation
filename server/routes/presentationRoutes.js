@@ -24,4 +24,19 @@ router.get("/", async (req, res) => {
   res.json(list)
 })
 
+// GET /presentations/:id
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const presentation = await Presentation.findById(id);
+    if (!presentation) {
+      return res.status(404).json({ error: "Presentation not found" });
+    }
+    res.json(presentation);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 export default router
